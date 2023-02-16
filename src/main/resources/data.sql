@@ -1,0 +1,22 @@
+INSERT INTO product VALUES (DEFAULT, 'Цемент, 20 кг', 20.00, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Шуруповёрт', 300.00, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Шуруп 4х30', 10.43, 'BULK', true);
+INSERT INTO product VALUES (DEFAULT, 'Масло', 31.20, 'LIQUID', false);
+INSERT INTO product VALUES (DEFAULT, 'Клей, 5мл', 5.43, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Краска', 25.00, 'LIQUID', true);
+INSERT INTO product VALUES (DEFAULT, 'Песок', 4.00, 'BULK', true);
+INSERT INTO product VALUES (DEFAULT, 'Пила', 151.90, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Гайка М36', 3.00, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Гвозди 4х100мм', 30.00, 'BULK', false);
+INSERT INTO product VALUES (DEFAULT, 'Табурет', 59.34, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Лампа', 41.50, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Перчатки, пара', 2.45, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Замок', 15.36, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Огнемёт XM42-M', 2300.00, 'PIECE', false);
+
+INSERT INTO discount_card VALUES (1234, 10);
+INSERT INTO discount_card VALUES (4583, 10);
+INSERT INTO discount_card VALUES (1, 10);
+INSERT INTO discount_card VALUES (12345, 10);
+INSERT INTO discount_card VALUES (123456, 10);
+INSERT INTO discount_card VALUES (1111, 10);
