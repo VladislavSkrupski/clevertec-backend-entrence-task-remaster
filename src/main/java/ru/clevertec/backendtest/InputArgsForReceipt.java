@@ -1,6 +1,5 @@
 package ru.clevertec.backendtest;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -8,8 +7,8 @@ import java.util.Map;
 
 @Component
 public class InputArgsForReceipt {
-    int discountCardId = -1;
-    Map<Integer, Integer> productAmountMap = new HashMap<>();
+    private int discountCardId = -1;
+    private final Map<Integer, Integer> productAmountMap = new HashMap<>();
 
     public InputArgsForReceipt() {
     }
