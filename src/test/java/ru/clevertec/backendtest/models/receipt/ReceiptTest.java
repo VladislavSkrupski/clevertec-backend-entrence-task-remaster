@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.clevertec.backendtest.models.discountCard.DiscountCard;
 import ru.clevertec.backendtest.models.product.Goods;
-import ru.clevertec.backendtest.models.utils.ReceiptTestBuilder;
+import ru.clevertec.backendtest.utils.ReceiptTestBuilder;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

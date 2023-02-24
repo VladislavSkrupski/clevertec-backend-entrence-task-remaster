@@ -1,4 +1,4 @@
-package ru.clevertec.backendtest.models.utils;
+package ru.clevertec.backendtest.utils;
 
 import ru.clevertec.backendtest.models.discountCard.DiscountCard;
 import ru.clevertec.backendtest.models.product.Goods;

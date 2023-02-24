@@ -2,13 +2,28 @@ package ru.clevertec.backendtest.models.receipt;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.EmptySource;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullSource;
+import ru.clevertec.backendtest.models.discountCard.DiscountCard;
+import ru.clevertec.backendtest.models.product.Goods;
+import ru.clevertec.backendtest.utils.CollectionsOfTestObjects;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static ru.clevertec.backendtest.utils.CollectionsOfTestObjects.discountCardForTestReceipt;
+import static ru.clevertec.backendtest.utils.CollectionsOfTestObjects.listOfGoodsForTestReceipt;
 
 class ReceiptBuilderTest {
 
@@ -68,24 +83,124 @@ class ReceiptBuilderTest {
         );
     }
 
-    @Test
-    void setItems() {
+    @Nested
+    class SetItemsTest {
+        @ParameterizedTest
+        @EmptySource
+        void setItemsShouldSetEmptyListWhenCalled(List<Goods> items) {
+            receiptBuilder.setItems(items);
+
+            Object actual = getFieldData(receiptBuilder, "items");
+
+            assertThat((List<?>) actual).isEmpty();
+        }
+
+        @Test
+        void setItemsShouldSetCorrectItemsWhenCalled() {
+            receiptBuilder.setItems(listOfGoodsForTestReceipt());
+
+            Object actual = getFieldData(receiptBuilder, "items");
+
+            assertThat((List<?>) actual).hasSize(listOfGoodsForTestReceipt().size());
+        }
     }
 
-    @Test
-    void setDiscountCard() {
+    @Nested
+    class SetDiscountCardTest {
+        @ParameterizedTest
+        @NullSource
+        void setDiscountCardShouldSetNullWhenCalled(DiscountCard discountCard) {
+            receiptBuilder.setDiscountCard(discountCard);
+
+            Object actual = getFieldData(receiptBuilder, "discountCard");
+
+            assertThat(actual).isNull();
+        }
+
+        @Test
+        void setDiscountCardShouldSetCorrectDiscountCardWhenCalled() {
+            receiptBuilder.setDiscountCard(discountCardForTestReceipt());
+
+            DiscountCard actual = (DiscountCard) getFieldData(receiptBuilder, "discountCard");
+
+            assertAll(
+                    () -> assertThat(actual.getId()).isEqualTo(discountCardForTestReceipt().getId()),
+                    () -> assertThat(actual.getDiscount()).isEqualTo(discountCardForTestReceipt().getDiscount())
+            );
+        }
     }
 
-    @Test
-    void setTotalCost() {
+    @Nested
+    class SetTotalCostTest {
+        @ParameterizedTest
+        @EmptySource
+        void setTotalCostShouldSetZeroWhenSetItemsCalledWithEmptyList(List<Goods> items) {
+            receiptBuilder.setItems(items).setTotalCost();
+
+            Double actual = (Double) getFieldData(receiptBuilder, "totalCost");
+
+            assertThat(actual).isEqualTo(0);
+        }
+
+        @Test
+        void setTotalCostShouldSetCorrectTotalCostWhenCalled() {
+            receiptBuilder.setItems(listOfGoodsForTestReceipt()).setTotalCost();
+
+            Double actual = (Double) getFieldData(receiptBuilder, "totalCost");
+            Double expected = listOfGoodsForTestReceipt().stream()
+                    .mapToDouble(goods -> ((Item) goods).getCost())
+                    .sum();
+
+            assertThat(actual).isEqualTo(expected);
+        }
     }
 
-    @Test
-    void setTotalCostWithDiscount() {
+    @ParameterizedTest
+    @MethodSource("provideArguments")
+    void setTotalCostWithDiscountShouldSetCorrectTotalCostWithDiscountWhenCalled(List<Goods> items, DiscountCard discountCard) {
+        receiptBuilder.setItems(items).setDiscountCard(discountCard).setTotalCost().setTotalCostWithDiscount();
+
+        Double actual = (Double) getFieldData(receiptBuilder, "totalCostWithDiscount");
+        Double expected = items.stream()
+                .mapToDouble(goods -> ((Item) goods).getCost())
+                .sum() * (Objects.nonNull(discountCard) ? (double) (100 - discountCard.getDiscount()) / 100 : 1);
+
+        assertThat(actual).isEqualTo(expected);
     }
 
-    @Test
-    void build() {
+    @Nested
+    class buildTest {
+        @Test
+        void buildShouldReturnReceiptWithNullFieldsWhenCalledWithoutSetFields() {
+            Receipt actual = receiptBuilder.build();
+
+            assertAll(
+                    () -> assertThat(actual.getCashierID()).isNull(),
+                    () -> assertThat(actual.getStoreId()).isNull(),
+                    () -> assertThat(actual.getStoreAddress()).isNull(),
+                    () -> assertThat(actual.getDate()).isNull(),
+                    () -> assertThat(actual.getItems()).isNull(),
+                    () -> assertThat(actual.getDiscountCard()).isNull(),
+                    () -> assertThat(actual.getTotalCost()).isEqualTo(0),
+                    () -> assertThat(actual.getTotalCostWithDiscount()).isEqualTo(0)
+            );
+        }
+
+        @Test
+        void buildShouldReturnReceiptWithCorrectFieldsWhenCalledWithSetFields() {
+            Receipt actual = CollectionsOfTestObjects.receiptForTestReceipt();
+
+            assertAll(
+                    () -> assertThat(actual.getCashierID()).isEqualTo("K021"),
+                    () -> assertThat(actual.getStoreId()).isEqualTo("S025"),
+                    () -> assertThat(actual.getStoreAddress()).isEqualTo("Minsk, str. Nemiga, 5"),
+                    () -> assertThat(actual.getDate()).isLessThan(new GregorianCalendar()),
+                    () -> assertThat(actual.getItems()).hasSize(listOfGoodsForTestReceipt().size()),
+                    () -> assertThat(actual.getDiscountCard()).isNotNull(),
+                    () -> assertThat(actual.getTotalCost()).isEqualTo(165),
+                    () -> assertThat(actual.getTotalCostWithDiscount()).isEqualTo(148.5)
+            );
+        }
     }
 
     private static Object getFieldData(Object object, String fieldName) {
@@ -96,5 +211,14 @@ class ReceiptBuilderTest {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Stream<? extends Arguments> provideArguments() {
+        return Stream.of(
+                Arguments.of(new ArrayList<>(), null),
+                Arguments.of(new ArrayList<>(), discountCardForTestReceipt()),
+                Arguments.of(listOfGoodsForTestReceipt(), null),
+                Arguments.of(listOfGoodsForTestReceipt(), discountCardForTestReceipt())
+        );
     }
 }

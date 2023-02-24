@@ -1,4 +1,4 @@
-package ru.clevertec.backendtest.models.utils;
+package ru.clevertec.backendtest.utils;
 
 @FunctionalInterface
 public interface TestBuilder<T> {
