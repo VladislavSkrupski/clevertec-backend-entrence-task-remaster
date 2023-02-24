@@ -13,10 +13,16 @@ import java.util.Scanner;
 
 @Component
 public class ConsoleWorker {
+
+    private final ReceiptDirector director;
+
+    private final InputArgsForReceipt inputArgsForReceipt;
+
     @Autowired
-    private ReceiptDirector director;
-    @Autowired
-    private InputArgsForReceipt inputArgsForReceipt;
+    public ConsoleWorker(ReceiptDirector director, InputArgsForReceipt inputArgsForReceipt) {
+        this.director = director;
+        this.inputArgsForReceipt = inputArgsForReceipt;
+    }
 
     @Autowired
     public void printToConsole() {
