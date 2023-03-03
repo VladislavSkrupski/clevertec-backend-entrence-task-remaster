@@ -24,9 +24,9 @@ public interface CollectionsOfTestObjects {
     static List<Goods> listOfGoodsForTestReceipt() {
         return new ArrayList<>(
                 List.of(
-                        new Item(listOfProductsForTest().get(0), 5),
-                        new Item(listOfProductsForTest().get(1), 2),
-                        new Item(listOfProductsForTest().get(2), 10)
+                        new Item(listOfProductsForTest().get(0), 5.0),
+                        new Item(listOfProductsForTest().get(1), 2.0),
+                        new Item(listOfProductsForTest().get(2), 10.0)
                 )
         );
     }

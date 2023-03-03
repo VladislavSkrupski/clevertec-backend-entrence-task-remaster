@@ -157,15 +157,16 @@ class ReceiptBuilderTest {
 
     @ParameterizedTest
     @MethodSource("provideArguments")
-    void setTotalCostWithDiscountShouldSetCorrectTotalCostWithDiscountWhenCalled(List<Goods> items, DiscountCard discountCard) {
+    void setTotalCostWithDiscountShouldSetCorrectTotalCostWithDiscountWhenCalled(
+            List<Goods> items,
+            DiscountCard discountCard,
+            double expectedTotalCostWithDiscount
+    ) {
         receiptBuilder.setItems(items).setDiscountCard(discountCard).setTotalCost().setTotalCostWithDiscount();
 
         Double actual = (Double) getFieldData(receiptBuilder, "totalCostWithDiscount");
-        Double expected = items.stream()
-                .mapToDouble(goods -> ((Item) goods).getCost())
-                .sum() * (Objects.nonNull(discountCard) ? (double) (100 - discountCard.getDiscount()) / 100 : 1);
 
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).isEqualTo(expectedTotalCostWithDiscount);
     }
 
     @Nested
@@ -215,10 +216,10 @@ class ReceiptBuilderTest {
 
     private static Stream<? extends Arguments> provideArguments() {
         return Stream.of(
-                Arguments.of(new ArrayList<>(), null),
-                Arguments.of(new ArrayList<>(), discountCardForTestReceipt()),
-                Arguments.of(listOfGoodsForTestReceipt(), null),
-                Arguments.of(listOfGoodsForTestReceipt(), discountCardForTestReceipt())
+                Arguments.of(new ArrayList<>(), null, 0),
+                Arguments.of(new ArrayList<>(), discountCardForTestReceipt(), 0),
+                Arguments.of(listOfGoodsForTestReceipt(), null, 165.0),
+                Arguments.of(listOfGoodsForTestReceipt(), discountCardForTestReceipt(), 148.5)
         );
     }
 }
