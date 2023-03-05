@@ -9,7 +9,7 @@ public class Item implements Goods {
     private final Goods wrappedProduct;
     private final double cost;
 
-    public Item(Goods wrappedProduct, int amount) {
+    public Item(Goods wrappedProduct, double amount) {
         this.wrappedProduct = wrappedProduct;
         this.amount = amount;
         this.cost = setCost();
