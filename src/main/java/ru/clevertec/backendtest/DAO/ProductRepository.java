@@ -1,6 +1,6 @@
 package ru.clevertec.backendtest.DAO;
 
-import ru.clevertec.backendtest.models.product.Product;
+import ru.clevertec.backendtest.model.product.Product;
 
 import java.util.List;
 

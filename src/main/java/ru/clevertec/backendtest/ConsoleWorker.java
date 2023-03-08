@@ -1,8 +1,8 @@
 package ru.clevertec.backendtest;
 
-import ru.clevertec.backendtest.models.receipt.Receipt;
-import ru.clevertec.backendtest.models.receipt.ReceiptBuilder;
-import ru.clevertec.backendtest.models.receipt.ReceiptDirector;
+import ru.clevertec.backendtest.model.receipt.Receipt;
+import ru.clevertec.backendtest.model.receipt.ReceiptBuilder;
+import ru.clevertec.backendtest.model.receipt.ReceiptDirector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package ru.clevertec.backendtest.DAO;
 
-import ru.clevertec.backendtest.models.discountCard.DiscountCard;
+import ru.clevertec.backendtest.model.discountCard.DiscountCard;
 
 import java.util.List;
 
