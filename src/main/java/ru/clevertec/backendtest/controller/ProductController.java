@@ -1,5 +1,6 @@
 package ru.clevertec.backendtest.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -49,12 +50,12 @@ public class ProductController {
     }
 
     @PostMapping(value = "/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public boolean createProduct(@RequestBody ProductAdapter product) {
+    public boolean createProduct(@Valid @RequestBody ProductAdapter product) {
         return productService.create(product);
     }
 
     @PutMapping(value = "/product", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public boolean updateById(@RequestBody ProductAdapter product) {
+    public boolean updateById(@Valid @RequestBody ProductAdapter product) {
         return productService.update(product);
     }
 

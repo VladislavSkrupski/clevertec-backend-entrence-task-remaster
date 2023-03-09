@@ -55,7 +55,7 @@ public class ProductServiceAspect {
 
     @AfterReturning(value = "getById()", returning = "returnedValue")
     private void putInCacheIfNotExist(Object returnedValue) {
-        if (returnedValue != null)
+        if (Objects.nonNull(returnedValue))
             if (productCache.get(((Product) returnedValue).getId()) == null)
                 productCache.put(((Product) returnedValue).getId(), returnedValue);
     }
@@ -94,13 +94,15 @@ public class ProductServiceAspect {
     @After(value = "create()")
     private void putInCache(JoinPoint joinPoint) {
         Object product = joinPoint.getArgs()[0];
-        productCache.put(((Product) product).getId(), product);
+        if (Objects.nonNull(product))
+            productCache.put(((Product) product).getId(), product);
     }
 
     @After(value = "update()")
     private void updateInCache(JoinPoint joinPoint) {
         Object product = joinPoint.getArgs()[0];
-        productCache.put(((Product) product).getId(), product);
+        if (Objects.nonNull(product))
+            productCache.put(((Product) product).getId(), product);
     }
 
     @After(value = "deleteById()")

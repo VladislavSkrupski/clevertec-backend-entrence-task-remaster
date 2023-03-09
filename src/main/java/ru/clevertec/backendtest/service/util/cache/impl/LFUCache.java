@@ -50,8 +50,9 @@ public class LFUCache<K, V> implements Cache<K, V> {
         counts.put(key, 0);
         min = 0;
         keySets.get(0).add(key);
-        cacheValues.put(key, value);
-        return get(key);
+        V v = cacheValues.put(key, value);
+        get(key);
+        return v;
     }
 
     /**

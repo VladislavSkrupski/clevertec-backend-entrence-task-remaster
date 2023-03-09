@@ -9,6 +9,8 @@ import ru.clevertec.backendtest.model.discountCard.DiscountCard;
 import ru.clevertec.backendtest.service.util.cache.Cache;
 import ru.clevertec.backendtest.service.util.cache.CacheFactory;
 
+import java.util.Objects;
+
 @Aspect
 @Component
 public class DiscountCardServiceAspect {
@@ -44,20 +46,23 @@ public class DiscountCardServiceAspect {
 
     @AfterReturning(value = "getById()", returning = "returnedValue")
     private void putInCacheIfNotExist(Object returnedValue) {
-        if (discountCardCache.get(((DiscountCard) returnedValue).getId()) == null)
-            discountCardCache.put(((DiscountCard) returnedValue).getId(), returnedValue);
+        if (Objects.nonNull(returnedValue))
+            if (discountCardCache.get(((DiscountCard) returnedValue).getId()) == null)
+                discountCardCache.put(((DiscountCard) returnedValue).getId(), returnedValue);
     }
 
     @After(value = "create()")
     private void putInCache(JoinPoint joinPoint) {
         Object discountCard = joinPoint.getArgs()[0];
-        discountCardCache.put(((DiscountCard) discountCard).getId(), discountCard);
+        if (Objects.nonNull(discountCard))
+            discountCardCache.put(((DiscountCard) discountCard).getId(), discountCard);
     }
 
     @After(value = "update()")
     private void updateInCache(JoinPoint joinPoint) {
         Object discountCard = joinPoint.getArgs()[0];
-        discountCardCache.put(((DiscountCard) discountCard).getId(), discountCard);
+        if (Objects.nonNull(discountCard))
+            discountCardCache.put(((DiscountCard) discountCard).getId(), discountCard);
     }
 
     @After(value = "deleteById()")
