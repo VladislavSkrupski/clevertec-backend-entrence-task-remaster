@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: "postgres"
+    password: "pass"
+  sql:
+    init:
+      mode: "always"
+      schema-locations: "classpath*:schema.sql"
+      data-locations: "classpath*:data.sql"
+
+cache:
+  type: "lru"
+  size: "5"
