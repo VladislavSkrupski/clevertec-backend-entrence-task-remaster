@@ -1,29 +1,51 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'org.springframework.boot' version '3.0.0'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
 
-group = 'by.task'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+group = 'ru.clevertec'
+archivesBaseName = 'reciept-printer'
+version = '1.0.0'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'org.postgresql:postgresql'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+    doLast {
+        copy {
+            from file("build//libs/${archivesBaseName}-${version}.jar")
+            into 'outputJar'
+        }
+    }
+}
+
+clean {
+    doLast {
+        file("outputJar/${archivesBaseName}-${version}.jar").delete()
+        file('outputJar/').delete()
+    }
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
-}
-tasks.bootJar{
-
+    useJUnitPlatform()
 }

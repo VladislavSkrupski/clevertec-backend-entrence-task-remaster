@@ -1,5 +1,8 @@
 # backendTest
 ___
+
+[Ссылка на задание Reflection](https://github.com/VladislavSkrupski/clevertec-backend-entrence-task-remaster/tree/develop/src/main/java/ru/clevertec/backendtest/service/util)
+___
 ## Используемый стек
 __Java 17, SpringBoot 3.0.0, JDBCTemplate, Gradle 7.5, PostgreSQL__
 ___
