@@ -27,7 +27,7 @@ class ItemTest {
     class AddItemAmountTest {
 
         @ParameterizedTest
-        @MethodSource("ru.clevertec.backendtest.models.receipt.ItemTest#provideArgumentsWithExpectedValue")
+        @MethodSource("ru.clevertec.backendtest.model.receipt.ItemTest#provideArgumentsWithExpectedValue")
         void getAmountShouldReturnCorrectAmountFromItem(Item item) {
             Double actual = item.getAmount();
 

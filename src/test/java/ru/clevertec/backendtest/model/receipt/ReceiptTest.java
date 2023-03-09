@@ -93,7 +93,7 @@ class ReceiptTest {
 
 
         @ParameterizedTest
-        @MethodSource("ru.clevertec.backendtest.models.receipt.ReceiptTest#discountCardProvider")
+        @MethodSource("ru.clevertec.backendtest.model.receipt.ReceiptTest#discountCardProvider")
         void getDiscountCardShouldReturnCorrectDiscountCard(DiscountCard discountCard) {
             receipt = ReceiptTestBuilder.aReceipt().withDiscountCard(discountCard).build();
 
