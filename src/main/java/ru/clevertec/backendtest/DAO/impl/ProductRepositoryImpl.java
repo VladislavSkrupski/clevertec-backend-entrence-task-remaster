@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ru.clevertec.backendtest.model.product.ProductAdapter;
 
 import java.util.List;
 
@@ -36,5 +37,36 @@ public class ProductRepositoryImpl implements ProductRepository {
             product = null;
         }
         return product;
+    }
+
+    @Override
+    public boolean create(ProductAdapter product) {
+        String query = "INSERT INTO product (product_name, price, product_unit, is_promotional) values (?, ?, ?, ?)";
+        return jdbcTemplate.update(
+                query,
+                product.getName(),
+                product.getPrice(),
+                product.getEnumUnit().toString(),
+                product.isPromotional()
+        ) > 0;
+    }
+
+    @Override
+    public boolean update(ProductAdapter product) {
+        String query = "UPDATE product SET product_name=?, price=?, product_unit=?, is_promotional=? WHERE id=?";
+        return jdbcTemplate.update(
+                query,
+                product.getName(),
+                product.getPrice(),
+                product.getEnumUnit().toString(),
+                product.isPromotional(),
+                product.getId()
+        ) > 0;
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        String query = "DELETE FROM product WHERE id=?";
+        return jdbcTemplate.update(query, id) > 0;
     }
 }

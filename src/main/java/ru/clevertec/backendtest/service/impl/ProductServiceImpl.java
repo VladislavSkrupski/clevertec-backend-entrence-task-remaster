@@ -4,6 +4,7 @@ import ru.clevertec.backendtest.DAO.ProductRepository;
 import ru.clevertec.backendtest.model.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.clevertec.backendtest.model.product.ProductAdapter;
 import ru.clevertec.backendtest.service.ProductService;
 
 import java.util.ArrayList;
@@ -35,5 +36,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getAll() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public boolean create(ProductAdapter product) {
+        return productRepository.create(product);
+    }
+
+    @Override
+    public boolean update(ProductAdapter product) {
+        return productRepository.update(product);
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        return productRepository.deleteById(id);
     }
 }

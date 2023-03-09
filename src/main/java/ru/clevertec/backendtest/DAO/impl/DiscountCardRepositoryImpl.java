@@ -37,4 +37,30 @@ public class DiscountCardRepositoryImpl implements DiscountCardRepository {
         }
         return discountCard;
     }
+
+    @Override
+    public boolean create(DiscountCard discountCard) {
+        String query = "INSERT INTO discount_card (id, discount_percent) values (?, ?)";
+        return jdbcTemplate.update(
+                query,
+                discountCard.getId(),
+                discountCard.getDiscount()
+        ) > 0;
+    }
+
+    @Override
+    public boolean update(DiscountCard discountCard) {
+        String query = "UPDATE discount_card SET discount_percent=? WHERE id=?";
+        return jdbcTemplate.update(
+                query,
+                discountCard.getDiscount(),
+                discountCard.getId()
+        ) > 0;
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        String query = "DELETE FROM discount_card WHERE id=?";
+        return jdbcTemplate.update(query, id) > 0;
+    }
 }

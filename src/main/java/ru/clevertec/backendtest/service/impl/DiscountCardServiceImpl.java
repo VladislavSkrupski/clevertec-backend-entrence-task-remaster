@@ -20,4 +20,19 @@ public class DiscountCardServiceImpl implements DiscountCardService {
     public DiscountCard getById(int id) {
         return discountCardRepository.findById(id);
     }
+
+    @Override
+    public boolean create(DiscountCard discountCard) {
+        return discountCardRepository.create(discountCard);
+    }
+
+    @Override
+    public boolean update(DiscountCard discountCard) {
+        return discountCardRepository.update(discountCard);
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        return discountCardRepository.deleteById(id);
+    }
 }
