@@ -1,4 +1,4 @@
-package ru.clevertec.backendtest.service.util;
+package ru.clevertec.backendtest.service.util.cache;
 
 /**
  * Interface defining methods for cache classes

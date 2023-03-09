@@ -1,4 +1,6 @@
-package ru.clevertec.backendtest.service.util;
+package ru.clevertec.backendtest.service.util.cache.impl;
+
+import ru.clevertec.backendtest.service.util.cache.Cache;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
