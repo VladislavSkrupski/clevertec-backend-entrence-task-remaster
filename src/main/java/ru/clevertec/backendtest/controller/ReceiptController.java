@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class ReceiptController {
@@ -29,8 +27,8 @@ public class ReceiptController {
             @RequestParam(name = "qty") List<Integer> quantities,
             @RequestParam(required = false, defaultValue = "-1") Integer card
     ) {
-        InputArgsForReceipt inputArgsForReceipt = getInputArgsForReceipt(ids, quantities, card);
-        return receiptService.getReceipt(inputArgsForReceipt).print();
+        InputArgsForReceipt inputArgsForReceipt = InputArgsForReceipt.getInputArgsForReceipt(ids, quantities, card);
+        return receiptService.getReceipt(inputArgsForReceipt).toString();
     }
 
     //http://localhost:8080/check?id=3&qty=1&id=2&qty=5&id=5&qty=1&card=1234
@@ -40,19 +38,7 @@ public class ReceiptController {
             @RequestParam(name = "qty") List<Integer> quantities,
             @RequestParam(required = false, defaultValue = "-1") Integer card
     ) {
-        InputArgsForReceipt inputArgsForReceipt = getInputArgsForReceipt(ids, quantities, card);
+        InputArgsForReceipt inputArgsForReceipt = InputArgsForReceipt.getInputArgsForReceipt(ids, quantities, card);
         return receiptService.getReceipt(inputArgsForReceipt);
-    }
-
-    private static InputArgsForReceipt getInputArgsForReceipt(List<Integer> ids, List<Integer> quantities, int card) {
-        InputArgsForReceipt inputArgsForReceipt = new InputArgsForReceipt();
-        Map<Integer, Integer> productQuantitiesMap = new HashMap<>();
-        if (card > 0) inputArgsForReceipt.setDiscountCardId(card);
-        int paramListLength = Math.min(ids.size(), quantities.size());
-        for (int i = 0; i < paramListLength; i++) {
-            productQuantitiesMap.put(ids.get(i), quantities.get(i));
-        }
-        inputArgsForReceipt.setProductAmountMap(productQuantitiesMap);
-        return inputArgsForReceipt;
     }
 }

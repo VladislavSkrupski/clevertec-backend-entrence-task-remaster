@@ -3,6 +3,7 @@ package ru.clevertec.backendtest;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -11,6 +12,18 @@ public class InputArgsForReceipt {
     private final Map<Integer, Integer> productAmountMap = new HashMap<>();
 
     public InputArgsForReceipt() {
+    }
+
+    public static InputArgsForReceipt getInputArgsForReceipt(List<Integer> ids, List<Integer> quantities, int card) {
+        InputArgsForReceipt inputArgsForReceipt = new InputArgsForReceipt();
+        Map<Integer, Integer> productQuantitiesMap = new HashMap<>();
+        if (card > 0) inputArgsForReceipt.setDiscountCardId(card);
+        int paramListLength = Math.min(ids.size(), quantities.size());
+        for (int i = 0; i < paramListLength; i++) {
+            productQuantitiesMap.put(ids.get(i), quantities.get(i));
+        }
+        inputArgsForReceipt.setProductAmountMap(productQuantitiesMap);
+        return inputArgsForReceipt;
     }
 
     public int getDiscountCardId() {
