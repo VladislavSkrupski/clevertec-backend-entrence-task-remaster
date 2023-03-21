@@ -13,6 +13,17 @@ INSERT INTO product VALUES (DEFAULT, 'Лампа', 41.50, 'PIECE', false);
 INSERT INTO product VALUES (DEFAULT, 'Перчатки, пара', 2.45, 'PIECE', true);
 INSERT INTO product VALUES (DEFAULT, 'Замок', 15.36, 'PIECE', false);
 INSERT INTO product VALUES (DEFAULT, 'Огнемёт XM42-M', 2300.00, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Клей, 10мл', 12.32, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Краска акриловая', 35.00, 'LIQUID', true);
+INSERT INTO product VALUES (DEFAULT, 'Шпатлёвка, 10кг', 4.00, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Фрезер', 351.90, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Гайка М40', 4.00, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Гвозди 4х150мм', 30.00, 'BULK', false);
+INSERT INTO product VALUES (DEFAULT, 'Табурет пластиковый', 75.34, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Лампа диодная', 11.50, 'PIECE', false);
+INSERT INTO product VALUES (DEFAULT, 'Перчатки латексные, пара', 2.45, 'PIECE', true);
+INSERT INTO product VALUES (DEFAULT, 'Замок навесной', 15.36, 'PIECE', false);
+
 
 INSERT INTO discount_card VALUES (1234, 10);
 INSERT INTO discount_card VALUES (4583, 10);
