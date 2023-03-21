@@ -1,5 +1,7 @@
 package ru.clevertec.backendtest.model.receipt;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import ru.clevertec.backendtest.model.discountCard.DiscountCard;
 import ru.clevertec.backendtest.model.product.Goods;
 
@@ -7,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Getter
+@AllArgsConstructor
 public class Receipt {
     private final String cashierID;
     private final String storeId;
@@ -14,68 +18,11 @@ public class Receipt {
     private final GregorianCalendar date;
     private final List<Goods> items;
     private final DiscountCard discountCard;
-    private final boolean hasDiscount;
     private final double totalCost;
     private final double totalCostWithDiscount;
 
-    public Receipt(
-            String cashierID,
-            String storeId,
-            String storeAddress,
-            GregorianCalendar date,
-            List<Goods> items,
-            DiscountCard discountCard,
-            double totalCost,
-            double totalCostWithDiscount
-    ) {
-        this.cashierID = cashierID;
-        this.storeId = storeId;
-        this.storeAddress = storeAddress;
-        this.date = date;
-        this.items = items;
-        this.discountCard = discountCard;
-        this.hasDiscount = this.discountCard != null;
-        this.totalCost = totalCost;
-        this.totalCostWithDiscount = totalCostWithDiscount;
-    }
-
-    public String getCashierID() {
-        return cashierID;
-    }
-
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public String getStoreAddress() {
-        return storeAddress;
-    }
-
-    public GregorianCalendar getDate() {
-        return date;
-    }
-
-    public List<Goods> getItems() {
-        return items;
-    }
-
-    public DiscountCard getDiscountCard() {
-        return discountCard;
-    }
-
-    public boolean hasDiscount() {
-        return hasDiscount;
-    }
-
-    public double getTotalCost() {
-        return totalCost;
-    }
-
-    public double getTotalCostWithDiscount() {
-        return totalCostWithDiscount;
-    }
-
-    public String print() {
+    @Override
+    public String toString() {
         final int RECEIPT_WIDTH = 65;
         StringBuilder stringBuilder = new StringBuilder();
         String title = "RECEIPT";

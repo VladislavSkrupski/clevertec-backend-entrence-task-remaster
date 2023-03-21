@@ -28,11 +28,11 @@ class ReceiptControllerTest {
 
     @Test
     void getReceiptViewShouldReturnOkStatus() throws Exception {
-        this.mockMvc.perform(get("/view/check?id=3&qty=1&id=2&qty=5&id=5&qty=1&card=1234")).andExpect(status().isOk());
+        this.mockMvc.perform(get("/check/view?id=3&qty=1&id=2&qty=5&id=5&qty=1&card=1234")).andExpect(status().isOk());
     }
 
     @Test
     void getReceiptViewWithoutParamsShouldReturnBadRequestStatus() throws Exception {
-        this.mockMvc.perform(get("/view/check")).andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/check/view")).andExpect(status().isBadRequest());
     }
 }

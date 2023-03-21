@@ -24,12 +24,10 @@ public class ConsoleWorker {
         this.inputArgsForReceipt = inputArgsForReceipt;
     }
 
-    @Autowired
     public void printToConsole() {
         ReceiptBuilder receiptBuilder = new ReceiptBuilder();
         if (inputArgsForReceipt.getProductAmountMap().size() > 0)
-            System.out.println(director.buildReceipt(receiptBuilder, inputArgsForReceipt).print());
-        printToFile();
+            System.out.println(director.buildReceipt(receiptBuilder, inputArgsForReceipt).toString());
     }
 
     public void printToFile() {
@@ -39,7 +37,7 @@ public class ConsoleWorker {
             String fileName = "receipt-" + new SimpleDateFormat("d-MM-yyyy--HH-mm-ss").format(receipt.getDate().getTime()) + ".txt";
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-                writer.write(receipt.print());
+                writer.write(receipt.toString());
                 writer.close();
             } catch (IOException e) {
                 System.out.println("Can't write file " + fileName);

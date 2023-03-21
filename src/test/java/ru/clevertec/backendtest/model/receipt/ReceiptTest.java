@@ -105,15 +105,6 @@ class ReceiptTest {
     }
 
     @ParameterizedTest
-    @NullSource
-    @MethodSource("discountCardProvider")
-    void hasDiscountShouldReturnTrueIfDiscountCardIsNotNull(DiscountCard discountCard) {
-        receipt = ReceiptTestBuilder.aReceipt().withDiscountCard(discountCard).build();
-
-        assertThat(receipt.hasDiscount()).isEqualTo(discountCard != null);
-    }
-
-    @ParameterizedTest
     @ValueSource(doubles = {Double.MIN_VALUE, 0, 10.0, Double.MAX_VALUE})
     void getTotalCostShouldReturnCorrectTotalCost(double totalCost) {
         receipt = ReceiptTestBuilder.aReceipt().withTotalCost(totalCost).build();
@@ -133,7 +124,7 @@ class ReceiptTest {
     void print() {
         receipt = ReceiptTestBuilder.aReceipt().build();
 
-        assertThat(receipt.print()).isEqualTo(ReceiptTestBuilder.TEST_RECEIPT);
+        assertThat(receipt.toString()).isEqualTo(ReceiptTestBuilder.TEST_RECEIPT);
     }
 
     private static Stream<GregorianCalendar> dateProvider() {
